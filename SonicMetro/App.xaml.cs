@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using Arbitrary;
+using SonicAPI;
+using SonicCache.Interfaces;
+using SonicMetro.ViewModel.Navigation;
+using SonicMetro.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -33,6 +28,12 @@ namespace SonicMetro
             this.Suspending += OnSuspending;
         }
 
+        private void InitializeContainer()
+        {
+            var x = new SonicCache.SonicCache(new Guid("39d63eb8-a4d3-42a8-8972-3425e554a393"), new Query("server", "username", "password"));
+            ArbitraryContainer.Default.Register<ISonicCache>(x);
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
@@ -41,14 +42,16 @@ namespace SonicMetro
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            Frame mainFrame = Window.Current.Content as Frame;
+
+            InitializeContainer();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (mainFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                mainFrame = new Frame();
 
                 if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -56,19 +59,11 @@ namespace SonicMetro
                 }
 
                 // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                Window.Current.Content = mainFrame;
             }
 
-            if (rootFrame.Content == null)
-            {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), args.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
+            mainFrame.Navigate(typeof (ContentView));
+
             // Ensure the current window is active
             Window.Current.Activate();
         }

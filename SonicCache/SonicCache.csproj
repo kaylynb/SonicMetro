@@ -4,21 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3E4ED4DE-41D6-49C3-AE65-C6023C6B195D}</ProjectGuid>
-    <OutputType>AppContainerExe</OutputType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B2FA326D-B214-48AA-998E-AF1E97AC44CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SonicMetro</RootNamespace>
-    <AssemblyName>SonicMetro</AssemblyName>
+    <RootNamespace>SonicCache</RootNamespace>
+    <AssemblyName>SonicCache</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>SonicMetro_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>D60B8F3443C9B99A84776EBFC0AB5B873BE4D7E8</PackageCertificateThumbprint>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -28,7 +27,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -105,16 +103,12 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <ProjectReference Include="..\Arbitrary\Arbitrary\Arbitrary.csproj">
-      <Project>{89b712bc-fa32-4e6b-8184-be91c0a3ebe1}</Project>
+      <Project>{89B712BC-FA32-4E6B-8184-BE91C0A3EBE1}</Project>
       <Name>Arbitrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\SonicAPI\SonicAPI.csproj">
       <Project>{dacb3c00-ef28-4603-991c-76e1f20be217}</Project>
       <Name>SonicAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SonicCache\SonicCache.csproj">
-      <Project>{b2fa326d-b214-48aa-998e-af1e97ac44cc}</Project>
-      <Name>SonicCache</Name>
     </ProjectReference>
     <ProjectReference Include="..\SonicUtil\SonicUtil.csproj">
       <Project>{2a8e0ccd-7752-405e-b52c-6e8d9ea0ac83}</Project>
@@ -122,94 +116,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\BooleanNegationConverter.cs" />
-    <Compile Include="Common\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Common\LayoutAwarePage.cs" />
-    <Compile Include="Common\ObservableDictionary.cs" />
-    <Compile Include="Common\RichTextColumns.cs" />
-    <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="MediaPlayer\IMediaPlayer.cs" />
-    <Compile Include="MediaPlayer\MediaPlayer.cs" />
+    <Compile Include="Abstract\ADataSource.cs" />
+    <Compile Include="ByteArrayFileConverter.cs" />
+    <Compile Include="DataSource\CoverArtDataSource.cs" />
+    <Compile Include="DataSource\WebDataSource.cs" />
+    <Compile Include="DataSource\ConvertingDataSource.cs" />
+    <Compile Include="DataContractFileConverter.cs" />
+    <Compile Include="Data\ASubsonicData.cs" />
+    <Compile Include="Data\CoverArt.cs" />
+    <Compile Include="Data\Index.cs" />
+    <Compile Include="Data\Music.cs" />
+    <Compile Include="SonicApiDataSourceFactory.cs" />
+    <Compile Include="FileCache.cs" />
+    <Compile Include="Interfaces\IDataSource.cs" />
+    <Compile Include="Interfaces\IFileConverter.cs" />
+    <Compile Include="Interfaces\ISonicCache.cs" />
+    <Compile Include="Data\Interfaces\ISubsonicData.cs" />
+    <Compile Include="Data\MusicDirectory.cs" />
+    <Compile Include="Data\MusicFolder.cs" />
+    <Compile Include="Data\MusicFolders.cs" />
+    <Compile Include="Data\ObservableCollectionExtensions.cs" />
+    <Compile Include="MemoryCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\DelayedMessage\DelayedMessagePackage.cs" />
-    <Compile Include="Utility\DelayedMessage\DelayedMessageReceiver.cs" />
-    <Compile Include="Utility\DelayedMessage\DelayedMessageRequest.cs" />
-    <Compile Include="Utility\DelayedMessage\DelayedMessageSender.cs" />
-    <Compile Include="ViewModel\IndexesViewModel.cs" />
-    <Compile Include="ViewModel\MusicDirectoryViewModel.cs" />
-    <Compile Include="ViewModel\Navigation\FrameNavigationService.cs" />
-    <Compile Include="ViewModel\Navigation\INavigationService.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\ContentView.xaml.cs">
-      <DependentUpon>ContentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\IndexesView.xaml.cs">
-      <DependentUpon>IndexesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MusicDirectoryView.xaml.cs">
-      <DependentUpon>MusicDirectoryView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="packages.config" />
-    <None Include="SonicMetro_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\en-US\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SplashScreen.png" />
-    <Content Include="Assets\StoreLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="Common\StandardStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\MainPageStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Views\ContentView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\IndexesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MusicDirectoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight.Extras.Win8, Version=4.1.26.29183, Culture=neutral, PublicKeyToken=33a77f5c33c10a68, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\Win8\GalaSoft.MvvmLight.Extras.Win8.dll</HintPath>
-    </Reference>
-    <Reference Include="GalaSoft.MvvmLight.Win8, Version=4.1.26.29183, Culture=neutral, PublicKeyToken=7f0ea4153a3589fc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\Win8\GalaSoft.MvvmLight.Win8.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=619affe60327fc48, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\Win8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="WinRTXamlToolkit">
-      <HintPath>..\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
-    </Reference>
+    <Compile Include="SerializableXmlObjectFileConverter.cs" />
+    <Compile Include="SonicCache.cs" />
+    <Compile Include="UriExtensions.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

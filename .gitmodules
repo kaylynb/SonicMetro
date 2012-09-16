@@ -1,0 +1,3 @@
+[submodule "Arbitrary"]
+	path = Arbitrary
+	url = git@github.com:kaylynb/Arbitrary.git

@@ -28,3 +28,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+pingme.txt
+packages/
+.nuget/

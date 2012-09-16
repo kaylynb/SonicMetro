@@ -1,20 +1,22 @@
-﻿<Application
-    x:Class="SonicMetro.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SonicMetro">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SonicMetro.App"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="using:SonicMetro.ViewModel"
+             mc:Ignorable="d">
     <Application.Resources>
         <ResourceDictionary>
+            <viewModel:ViewModelLocator x:Key="Locator" d:IsDataSource="True"/>
             <ResourceDictionary.MergedDictionaries>
-
-                <!-- 
+                <!--
                     Styles that define common aspects of the platform look and feel
                     Required by Visual Studio project and item templates
                  -->
-                <ResourceDictionary Source="Common/StandardStyles.xaml"/>
+                <ResourceDictionary Source="Common/StandardStyles.xaml" />
+                <ResourceDictionary Source="Styles/MainPageStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
